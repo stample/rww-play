@@ -1,6 +1,8 @@
 rww-play 
 ========
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/read-write-web/rww-play?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This is an implementation in Play of a number of tools to build a Read-Write-Web server using Play2.x and akka.
 It is very early stages at present and it implements sketches of the following
 
