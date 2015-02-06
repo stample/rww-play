@@ -18,6 +18,7 @@ package rww.play
 
 import _root_.play.api.Logger
 import _root_.play.api.mvc.{Result,AnyContent, Controller, Action,Request => PlayRequest}
+import _root_.play.api.http.HeaderNames
 import org.w3.banana.io.{ Writer, WriterSelector}
 import org.w3.banana.{RDFOps, RDF}
 import rww.play.PlayWriterBuilder._
@@ -109,9 +110,9 @@ class CORSProxy[Rdf<:RDF](val wsClient: WebClient[Rdf])
     writerFor(request)(writerSelector).map { writer =>
       namedResource match {
         case ldpr: LDPR[Rdf] => createResultForLDPR(ldpr,writer)
-        case other => UnsupportedMediaType(s"Cannot proxy non rdf resources at present. Request sent ${request.headers.get(play.api.http.HeaderNames.ACCEPT)}")
+        case other => UnsupportedMediaType(s"Cannot proxy non rdf resources at present. Request sent ${request.headers.get(HeaderNames.ACCEPT)}")
       }
-    }.getOrElse(UnsupportedMediaType(s"could not find RDF type of resource at remote location ${request.headers.get(play.api.http.HeaderNames.ACCEPT)}"))
+    }.getOrElse(UnsupportedMediaType(s"could not find RDF type of resource at remote location ${request.headers.get(HeaderNames.ACCEPT)}"))
   }
 
 
