@@ -79,7 +79,7 @@ trait ReadWriteWebControllerGeneric extends ReadWriteWebControllerTrait {
   private def allowHeaders(authResult: AuthResult[NamedResource[Rdf]]): List[(String, String)] = {
     val modesAllowed = authResult.authInfo.modesAllowed
     val isLDPC =  authResult.result.isInstanceOf[LocalLDPC[_]]
-    val allow = "Allow" -> {
+    val allow = "Access-Control-Allow-Methods" -> {
       val headerStr = modesAllowed.collect {
         case Method.Append =>
           authResult.result match {
@@ -204,7 +204,9 @@ trait ReadWriteWebControllerGeneric extends ReadWriteWebControllerTrait {
         writerFor[Rdf#Graph](request).map { wr =>
           val headers =
             "Access-Control-Allow-Origin" -> "*" ::
-              "Accept-Patch" -> Syntax.SparqlUpdate.mimeTypes.head.mime :: //todo: something that is more flexible
+            "Access-Control-Allow-Headers" -> "content-type, If-Match" ::
+            "Access-Control-Expose-Headers" -> "Etag" ::
+            "Accept-Patch" -> Syntax.SparqlUpdate.mimeTypes.head.mime :: //todo: something that is more flexible
               linkHeaders(ldpr) ::
               commonHeaders
           result(200, wr, Map(headers: _*))(ldpr.relativeGraph)
