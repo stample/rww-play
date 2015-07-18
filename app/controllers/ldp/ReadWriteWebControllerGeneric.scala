@@ -204,7 +204,7 @@ trait ReadWriteWebControllerGeneric extends ReadWriteWebControllerTrait {
         writerFor[Rdf#Graph](request).map { wr =>
           val headers =
             "Access-Control-Allow-Origin" -> "*" ::
-            "Access-Control-Allow-Headers" -> "content-type, If-Match" ::
+            "Access-Control-Allow-Headers" -> "content-type, If-Match, Link, Slug" ::
             "Access-Control-Expose-Headers" -> "Etag" ::
             "Accept-Patch" -> Syntax.SparqlUpdate.mimeTypes.head.mime :: //todo: something that is more flexible
               linkHeaders(ldpr) ::
